@@ -1,133 +1,136 @@
-# Ultimate Guide to Vibe Coding V1.1
-**Author:** [Nicolas Zullo, https://x.com/NicolasZu](https://x.com/NicolasZu)  
-**Creation Date:** March 12, 2025  
-**Last Update Date:** April 24, 2025  
+# 소개
 
----
+**작성자:** [Nicolas Zullo, https://x.com/NicolasZu](https://x.com/NicolasZu)  
+**작성일:** 2025년 3월 12일  
+**최종 업데이트일:** 2025년 4월 24일
 
-## Getting Started
-To begin vibe coding, you only need two tools:  
-- **Gemini 2.5 Pro Thinking**  
-- **Cursor with Claude Sonnet 3.7 Thinking**  
+# 준비 단계
 
-*(Note: While earlier versions of this guide utilized Grok 3, we have transitioned to **Gemini 2.5 Pro**. The primary reasons for this shift are Gemini's impressive 1M token context window, which allows for a much broader understanding of the project, and its capabilities in handling complex software architecture, making it a more powerful partner for this workflow.)*
+비브 코딩을 시작하려면 다음 두 가지 도구만 있으면 됩니다:
 
-Setting up everything correctly is key. If you’re serious about creating a fully functional and visually appealing game, take the time to establish a solid foundation.  
+- **Gemini 2.5 Pro Thinking**
+- **Cursor with Claude Sonnet 3.7 Thinking**
 
-**Key Principle:** *Planning is everything.* Do NOT let the AI plan autonomously, or your codebase will become an unmanageable mess.
+*(참고: 이 가이드의 초기 버전에서는 Grok 3을 사용했지만, 현재는 ****Gemini 2.5 Pro****로 전환했습니다. 이 전환의 주요 이유는 Gemini가 제공하는 인상적인 100만 토큰 컨텍스트 윈도우 덕분에 프로젝트에 대한 훨씬 더 넓은 이해가 가능하고, 복잡한 소프트웨어 아키텍처를 다루는 능력이 뛰어나 이 워크플로우에서 훨씬 강력한 파트너가 되기 때문입니다.)*
 
----
+모든 것을 올바르게 설정하는 것이 핵심입니다. 정말로 완전하게 작동하고 시각적으로도 매력적인 게임을 만들고 싶다면, 시간을 들여 견고한 기반을 다지는 것이 중요합니다.
 
-## Setting Up Everything
+**핵심 원칙:** *계획이 전부입니다.* AI가 자율적으로 계획을 세우도록 두지 마세요. 그렇게 하면 코드베이스가 감당할 수 없을 정도로 엉망이 될 것입니다.
 
-### 1. Game Design Document
-- Take your game idea and ask **Gemini 2.5 Pro Thinking** to create a simple **Game Design Document** in Markdown format (`.md`).  
-- Review and refine the document to ensure it aligns with your vision. It’s fine if it’s basic—the goal is to give your AI context about the game’s structure and intent.  
+## 게임 디자인 문서 작성
 
-### 2. Tech Stack and `.cursor/rules`
-- Ask **Gemini 2.5 Pro Thinking** to recommend the best tech stack for your game (e.g., ThreeJS and WebSocket for a multiplayer 3D game). Save this as `tech-stack.md`.
-  - Challenge it to propose the *simplest yet most robust stack possible*.  
-- In Cursor, open the command palette (`Cmd + Shift + P`), type "rules", and select "Configure Rules for '.cursor'".
-- Use the `/Generate Cursor Rules` command within Cursor chat. If you have all .md files, it will make great rules.
-- **Crucially, review the generated rules.** Ensure they emphasize **modularity** (multiple files) and discourage a **monolith** (one giant file). You might need to manually tweak or add rules. Review also when they trigger.
-  - **IMPORTANT:** Some rules are critical for maintaining context and should be set as **"Always"** rules in Cursor. This ensures the AI *always* refers to them before generating code. Consider adding rules like the following and marking them as "Always":
+- 당신의 게임 아이디어를 **Gemini 2.5 Pro Thinking**에게 전달하여 간단한 **게임 디자인 문서(Game Design Document)** 를 Markdown 형식(`.md`)으로 작성하게 하세요.
+- 이 문서를 검토하고 다듬어, 당신의 비전과 일치하는지 확인하세요. 문서가 기본적인 수준이어도 괜찮습니다—목표는 AI가 게임의 구조와 의도를 이해할 수 있는 컨텍스트를 제공하는 것입니다.
+
+## 기술 스택 및 `.cursor/rules` 설정
+
+- **Gemini 2.5 Pro Thinking**에게 당신의 게임에 가장 적합한 기술 스택을 추천해 달라고 요청하세요 (예: 멀티플레이어 3D 게임의 경우 ThreeJS와 WebSocket). 이를 `tech-stack.md`로 저장하세요.
+  - 가장 *간단하면서도 견고한 스택*을 제안하도록 도전해 보세요.
+- Cursor에서 커맨드 팔레트(`Cmd + Shift + P`)를 열고 "rules"를 입력한 후 "Configure Rules for '.cursor'"를 선택하세요.
+- Cursor 채팅 내에서 `/Generate Cursor Rules` 명령어를 사용하세요. 모든 `.md` 파일이 준비되어 있다면 훌륭한 규칙을 생성할 수 있습니다.
+- **반드시 생성된 규칙을 검토하세요.** 규칙이 **모듈화**(여러 파일 사용)를 강조하고, **모놀리식**(하나의 거대한 파일 사용)을 지양하는지 확인하세요. 필요하다면 수동으로 규칙을 조정하거나 추가하세요. 규칙이 언제 트리거되는지도 검토하세요.
+  - **중요:** 일부 규칙은 컨텍스트 유지를 위해 매우 중요하므로 Cursor에서 **"Always"** 규칙으로 설정해야 합니다. 이렇게 하면 AI가 코드를 생성하기 전에 *항상* 해당 규칙을 참고하게 됩니다. 다음과 같은 규칙을 추가하고 "Always"로 설정하는 것을 고려하세요:
     > ```
     > # IMPORTANT:
     > # Always read memory-bank/@architecture.md before writing any code. Include entire database schema.
     > # Always read memory-bank/@game-design-document.md before writing any code.
     > # After adding a major feature or completing a milestone, update memory-bank/@architecture.md.
     > ```
-  - Example: Ensure other (non-"Always") rules guide the AI towards best practices for your stack (like networking, state management, etc.).
-  - *This overall rules setup is mandatory if you want a game that is as optimized as possible, and code as clean as possible.*
+  - 예시: 다른 ("Always"가 아닌) 규칙들도 AI가 네트워킹, 상태 관리 등 스택의 모범 사례를 따르도록 유도해야 합니다.
+  - *이러한 규칙 설정은 가능한 한 최적화된 게임을 만들고, 코드를 최대한 깔끔하게 유지하려면 반드시 필요한 과정입니다.*
 
+## 구현 계획 수립
 
-### 3. Implementation Plan
-- Provide **Gemini 2.5 Pro Thinking** with:  
-  - The Game Design Document (`game-design-document.md`)
-  - The tech stack recommendations (`tech-stack.md`)
-  - The Cursor rules you just configured (you can copy-paste them from the `.cursor/rules` file)
-- Ask it to create a detailed **Implementation Plan** in Markdown (`.md`) which is a step-by-step instructions for your AI developers.  
-  - Steps should be small and specific.  
-  - Each step must include a test to validate correct implementation.  
-  - No code—just clear, concrete instructions.  
-  - Focus on the *base game*, not the full feature set (details come later).  
+- **Gemini 2.5 Pro Thinking**에게 다음 자료들을 제공하세요:
+  - 게임 디자인 문서 (`game-design-document.md`)
+  - 기술 스택 추천 내용 (`tech-stack.md`)
+  - 방금 설정한 Cursor 규칙들 (`.cursor/rules` 파일에서 복사하여 붙여넣기 가능)
+- 위 자료들을 바탕으로, AI 개발자를 위한 단계별 **구현 계획서(Implementation Plan)** 를 Markdown(`.md`) 형식으로 작성하도록 요청하세요.
+  - 각 단계는 작고 구체적이어야 합니다.
+  - 각 단계에는 반드시 올바른 구현 여부를 검증할 수 있는 테스트가 포함되어야 합니다.
+  - 코드 작성은 포함하지 말고, 명확하고 구체적인 지침만 작성하도록 하세요.
+  - 전체 기능 세트가 아닌 *기본 게임* 구현에 초점을 맞추세요 (세부 기능 추가는 이후 단계에서 진행됩니다).
 
-### 4. Memory Bank
-- Create a new folder for your project, open it in Cursor.
-- Inside the project folder, create a subfolder named `memory-bank`.  
-- Add the following files to `memory-bank`:  
-  - `game-design-document.md`  
-  - `tech-stack.md`  
-  - `implementation-plan.md`  
-  - `progress.md` (Create this empty file for tracking completed steps)  
-  - `architecture.md` (Create this empty file for documenting file purposes)  
-- *Note: The `.cursor/rules` file will be automatically created in your project's root directory by Cursor when you save the rules in step 2.*
+## 메모리 뱅크 구성
 
----
+- 프로젝트용 새 폴더를 만들고, Cursor에서 해당 폴더를 엽니다.
 
-## Vibe Coding the Base Game
-Now the fun begins!
+- 프로젝트 폴더 안에 `memory-bank`라는 하위 폴더를 생성하세요.
 
-### Making sure everything is clear
-- Select **Claude Sonnet 3.7 Thinking** in Cursor. 
-- Prompt: Read all the documents in `/memory-bank`, is `implementation-plan.md` clear? What are your questions to make it 100% clear for you?
-- He usually asks 9-10 questions, answer them and prompt him to edit the `implementation-plan.md` accordingly, so it's even better.
+- `memory-bank` 폴더 안에 다음 파일들을 추가하세요:
 
-### Your first implementation prompt
-- Select **Claude Sonnet 3.7 Thinking** in Cursor.  
-- Prompt: Read all the documents in `/memory-bank`, and proceed with Step 1 of the implementation plan. I will run the tests. Do not start Step 2 until I validate the tests. Once I validate them, open `progress.md` and document what you did for future developers. Then add any architectural insights to `architecture.md` to explain what each file does.
+  - `game-design-document.md`
+  - `tech-stack.md`
+  - `implementation-plan.md`
+  - `progress.md` (완료된 단계를 추적하기 위한 빈 파일 생성)
+  - `architecture.md` (파일 목적을 문서화하기 위한 빈 파일 생성)
 
-- **Extreme vibe:** Install [Superwhisper](https://superwhisper.com) to speak casually with Claude instead of typing.  
+- *참고: **`.cursor/rules`** 파일은 2단계에서 규칙을 저장할 때 Cursor가 프로젝트 루트 디렉터리에 자동으로 생성합니다.*
 
-### Workflow
-- After completing Step 1:  
-- Commit your changes to Git (if unfamiliar, ask Gemini 2.5 for help).  
-- Start a new composer (`Cmd + N`, `Cmd + I`).  
-- Prompt: Now go through all files in the memory-bank, read progress.md to understand prior work, and proceed with Step 2. Do not start Step 3 until I validate the test.
-- Repeat this process until the entire `implementation-plan.md` is complete.  
+# 기본 게임 구현
 
----
+## 명확성 확보
 
-## Adding Details
-Congratulations, you’ve built the base game! It might be rough and lack features, but now you can experiment and refine it.  
-- Want fog, post-processing, effects, or sounds?  A better plane/car/castle? A gorgeous sky?
-- For each major feature, create a new `feature-implementation.md` file with short steps and tests.  
-- Implement and test incrementally.  
+이제 본격적으로 재미있는 작업을 시작할 시간입니다!
 
----
+- Cursor에서 **Claude Sonnet 3.7 Thinking**을 선택하세요.
+- 프롬프트: `/memory-bank` 폴더 내 모든 문서를 읽고, `implementation-plan.md`가 충분히 명확한지 확인해 주세요. 100% 명확해지기 위해 어떤 질문이 필요한가요?
+- Claude는 보통 9~10개의 질문을 할 것입니다. 이 질문들에 답변해 주고, `implementation-plan.md` 문서를 더 나은 방향으로 수정하도록 Claude에게 요청하세요.
 
-## Fixing Bugs and Stuckness
-- If a prompt fails or breaks the game:  
-- Click “restore” in Cursor and refine your prompt until it works.  
-- For errors:  
-- **If JavaScript:** Open the console (`F12`), copy the error, and paste it into Cursor—or provide a screenshot for visual glitches.  
-- **Lazy Option:** Install [BrowserTools](https://browsertools.agentdesk.ai/installation) to skip manual copying/screenshotting.  
-- If stuck:  
-- Revert to your last Git commit (`git reset`) and retry with new prompts.  
-- If *really* stuck:  
-- Use [RepoPrompt](https://repoprompt.com/) or [uithub](https://uithub.com/) to get your whole codebase in one file and ask **Gemini 2.5 Pro Thinking** for assistance.  
+## 첫 번째 구현 프롬프트
 
----
+- Cursor에서 **Claude Sonnet 3.7 Thinking**을 선택하세요.
+- 프롬프트: `/memory-bank` 폴더 내 모든 문서를 읽고, 구현 계획서(`implementation-plan.md`)의 1단계부터 진행해 주세요. 테스트는 내가 직접 실행할 것입니다. 내가 테스트를 검증하기 전까지는 2단계를 시작하지 마세요. 테스트가 통과되어 내가 검증을 완료하면, `progress.md`를 열어 이번 단계에서 수행한 내용을 미래의 개발자를 위해 문서화하세요. 또한 각 파일이 어떤 역할을 하는지 설명하기 위해 `architecture.md`에 아키텍처 관련 인사이트를 추가하세요.
 
-## Other Tips
-- **Small Edits:** Use Claude Sonnet 3.5. or GPT-4.1 
-- **Great Marketing Copywriting:** Use GPT-4.5.  
-- **Generate Great Sprites (2D images):** Use ChatGPT-4o
-- **Generate Music:** Use Suno
-- **Generate Sound Effects:** Use ElevenLabs
-- **Generate Video:** Use Sora
-- **Better prompt outputs:** Add “think as long as needed to get this right, I am not in a hurry. What matters is that you follow precisely what I ask you and execute it perfectly. Ask me questions if I am not precise enough."
+## 작업 흐름
 
----
+- 1단계를 완료한 후:
+  - 변경사항을 Git에 커밋하세요 (Git 사용이 익숙하지 않다면 **Gemini 2.5 Pro Thinking**에게 도움을 요청하세요).
+  - 새 Composer를 시작하세요 (`Cmd + N`, `Cmd + I`).
+  - 프롬프트: 이제 `memory-bank` 폴더 내 모든 파일을 살펴보고, `progress.md`를 읽어 이전 작업 내용을 이해한 다음, 2단계를 진행해 주세요. 내가 테스트를 검증하기 전까지는 3단계를 시작하지 마세요.
+- 이 과정을 `implementation-plan.md`의 모든 단계가 완료될 때까지 반복하세요.
 
-## Frequently Asked Questions
-**Q: I am making an app, not a game, is this the same workflow?**  
-**A:** It's mostly the same workflow, yes! Instead of a GDD (Game Design Document), you can do a PRD (Product Requirements Document). You can also use great tools like v0, Lovable, or Bolt.new to prototype first and then move your code to github, and then clone it to continue on Cursor with this guide.
+# 세부 기능 추가
 
-**Q: Your plane in your dogfight game is amazing, but I can’t replicate it in one prompt!**  
-**A:** It’s not one prompt—it’s ~30 prompts, guided by a specific `plane-implementation.md` file. Use sharp, specific prompts like “cut out space in the wings for ailerons,” not vague ones like “make a plane.”
+축하합니다! 기본 게임을 완성하셨습니다. 아직 거칠고 기능이 부족할 수 있지만, 이제 실험하고 개선할 수 있는 단계입니다.
 
-**Q: I don't know how to setup a server for my multiplayer game**  
-**A:** Ask Gemini 2.5 Pro or ChatGPT-4o.
+- 안개, 후처리, 효과, 사운드가 필요하신가요? 더 나은 비행기/자동차/성? 아름다운 하늘?
+- 각 주요 기능마다 `feature-implementation.md`라는 새 파일을 생성하고, 짧은 단계별 지침과 테스트를 작성하세요.
+- 점진적으로 구현하고 테스트를 진행하세요.
 
----
+# 버그 수정 및 문제 해결
+
+- 만약 프롬프트가 실패하거나 게임이 깨질 경우:
+  - Cursor에서 "restore" 버튼을 클릭하고, 프롬프트를 수정하여 제대로 작동하도록 개선하세요.
+
+- 오류가 발생했을 경우:
+  - **JavaScript 오류인 경우:** 콘솔(`F12`)을 열고, 오류 내용을 복사하여 Cursor에 붙여넣거나, 시각적 문제라면 스크린샷을 제공하세요.
+  - **간편한 방법:** [BrowserTools](https://browsertools.agentdesk.ai/installation)를 설치하면 수동으로 복사하거나 스크린샷을 찍는 과정을 생략할 수 있습니다.
+
+- 작업이 막혔을 경우:
+  - 마지막 Git 커밋으로 되돌아가세요 (`git reset`) 그리고 새로운 프롬프트로 다시 시도하세요.
+
+- *정말* 막혔다면:
+  - [RepoPrompt](https://repoprompt.com/) 또는 [uithub](https://uithub.com/)를 사용해 코드베이스 전체를 하나의 파일로 만든 후, **Gemini 2.5 Pro Thinking**에게 도움을 요청하세요.
+
+# 추가 팁
+
+- **간단한 수정:** Claude Sonnet 3.5 또는 GPT-4.1 사용
+- **마케팅 카피 작성:** GPT-4.5 사용
+- **우수한 스프라이트(2D 이미지) 생성:** ChatGPT-4o 사용
+- **음악 생성:** Suno 사용
+- **사운드 효과 생성:** ElevenLabs 사용
+- **비디오 생성:** Sora 사용
+- **더 나은 프롬프트 출력:** "제대로 결과가 나올 때까지 충분히 생각해 주세요. 저는 서두르지 않습니다. 중요한 것은 제가 요청한 바를 정확하게 따르고 완벽하게 실행하는 것입니다. 제가 충분히 명확하게 지시하지 않은 부분이 있다면 질문해 주세요." 라고 추가하세요.
+
+# 자주 묻는 질문(FAQ)
+
+**Q: 저는 게임이 아니라 앱을 만들고 있는데, 이 워크플로우도 똑같이 적용되나요?**  
+**A:** 네, 대부분 동일한 워크플로우를 사용할 수 있습니다! GDD(Game Design Document) 대신 PRD(Product Requirements Document)를 작성하면 됩니다. 또한, v0, Lovable, Bolt.new와 같은 훌륭한 툴을 사용해 먼저 프로토타입을 만들고, 코드를 GitHub에 옮긴 후 이 가이드를 따라 Cursor에서 작업을 계속할 수 있습니다.
+
+**Q: 당신의 도그파이트 게임에서 비행기가 정말 멋진데, 한 번의 프롬프트로 그걸 재현할 수가 없어요!**  
+**A:** 한 번의 프롬프트로 되는 것이 아닙니다—약 30개의 프롬프트가 들어갑니다. 이 과정은 `plane-implementation.md`라는 구체적인 파일을 기준으로 진행됩니다. "날개에 에일러론을 위한 공간을 뚫어라"처럼 예리하고 구체적인 프롬프트를 사용해야 합니다. "비행기를 만들어라"처럼 모호한 프롬프트는 피하세요.
+
+**Q: 멀티플레이어 게임을 위한 서버 설정 방법을 모르겠어요.**  
+**A:** **Gemini 2.5 Pro Thinking**이나 **ChatGPT-4o**에게 물어보세요.
+
