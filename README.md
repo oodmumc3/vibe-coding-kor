@@ -6,7 +6,7 @@
 
 # 준비 단계
 
-비브 코딩을 시작하려면 다음 두 가지 도구만 있으면 됩니다:
+바이브 코딩을 시작하려면 다음 두 가지 도구만 있으면 됩니다:
 
 - **Gemini 2.5 Pro Thinking**
 - **Cursor with Claude Sonnet 3.7 Thinking**
